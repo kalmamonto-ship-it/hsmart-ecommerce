@@ -58,7 +58,8 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500',
         category: 'Elektronik',
-        stock: 12
+        stock: 12,
+        sold: 37
       },
       {
         id: '2',
@@ -69,7 +70,8 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=500',
         category: 'Elektronik',
-        stock: 20
+        stock: 20,
+        sold: 84
       },
       {
         id: '3',
@@ -80,7 +82,8 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
         category: 'Aksesoris',
-        stock: 30
+        stock: 30,
+        sold: 120
       },
       {
         id: '4',
@@ -91,7 +94,8 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=500',
         category: 'Aksesoris',
-        stock: 40
+        stock: 40,
+        sold: 56
       },
       {
         id: '5',
@@ -102,7 +106,8 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1518895949257-7621c3c786d4?w=500',
         category: 'Kreatif',
-        stock: 18
+        stock: 18,
+        sold: 22
       },
       {
         id: '6',
@@ -113,16 +118,78 @@ function ensureSeedData() {
         image:
           'https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500',
         category: 'Produk Digital',
-        stock: 999
+        stock: 999,
+        sold: 210
       }
     ];
     save(PRODUCTS_KEY, products);
   }
 
-  // Pastikan array orders ada
-  const orders = load(ORDERS_KEY, null);
+  // Seed beberapa pesanan fiktif untuk demo (mirip Shopee sudah ada transaksi)
+  let orders = load(ORDERS_KEY, null);
   if (!orders) {
-    save(ORDERS_KEY, []);
+    const now = new Date();
+    const p1 = products.find(p => p.id === '1');
+    const p2 = products.find(p => p.id === '2');
+    const p3 = products.find(p => p.id === '3');
+    const p5 = products.find(p => p.id === '5');
+
+    orders = [
+      {
+        id: 'order-demo-1',
+        orderNumber: '0001',
+        userId: 'demo-user-1',
+        userName: 'Budi Mahasiswa',
+        userEmail: 'budi.mahasiswa@demo.hsmart',
+        customerName: 'Budi Mahasiswa',
+        address: 'Kost Griya Jaya, Jakarta',
+        items: [
+          {
+            productId: p1.id,
+            productName: p1.name,
+            quantity: 1,
+            subtotal: p1.price * 1
+          },
+          {
+            productId: p2.id,
+            productName: p2.name,
+            quantity: 1,
+            subtotal: p2.price * 1
+          }
+        ],
+        total: p1.price + p2.price,
+        status: 'delivered',
+        createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 7).toISOString()
+      },
+      {
+        id: 'order-demo-2',
+        orderNumber: '0002',
+        userId: 'demo-user-2',
+        userName: 'Sari Remote Worker',
+        userEmail: 'sari.remote@demo.hsmart',
+        customerName: 'Sari Remote Worker',
+        address: 'Apartemen Hijau Tower B, Bandung',
+        items: [
+          {
+            productId: p3.id,
+            productName: p3.name,
+            quantity: 1,
+            subtotal: p3.price * 1
+          },
+          {
+            productId: p5.id,
+            productName: p5.name,
+            quantity: 1,
+            subtotal: p5.price * 1
+          }
+        ],
+        total: p3.price + p5.price,
+        status: 'shipped',
+        createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 3).toISOString()
+      }
+    ];
+
+    save(ORDERS_KEY, orders);
   }
 }
 

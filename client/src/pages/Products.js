@@ -114,7 +114,9 @@ function Products() {
                       <h3>{product.name}</h3>
                       <p className="product-category">{product.category}</p>
                       <p className="product-price">{formatPrice(product.price)}</p>
-                      <p className="product-stock">Stok: {product.stock}</p>
+                      <p className="product-stock">
+                        Stok: {product.stock} &nbsp;•&nbsp; Terjual: {product.sold || 0}
+                      </p>
                     </div>
                   </Link>
                 </div>
