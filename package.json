@@ -1,0 +1,18 @@
+{
+  "name": "ecommerce-digital-entrepreneurship",
+  "version": "1.0.0",
+  "description": "HSMart - Platform E-Commerce Modern untuk Tugas Digital Entrepreneurship - Haikal Saputra Mamonto (231011402017)",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && node index.js",
+    "client": "cd client && npm start",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": ["ecommerce", "digital-entrepreneurship", "online-store", "hsmart"],
+  "author": "Haikal Saputra Mamonto",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
