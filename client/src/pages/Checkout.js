@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import {
+  apiGetCart,
+  apiCreateOrder
+} from '../mockApi';
 import './Checkout.css';
 
 function Checkout() {
@@ -13,16 +16,20 @@ function Checkout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (user) {
+      fetchCart();
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
   const fetchCart = async () => {
     try {
-      const response = await axios.get('/api/cart');
-      setCart(response.data);
+      const data = await apiGetCart(user.id);
+      setCart(data);
       setLoading(false);
       
-      if (response.data.length === 0) {
+      if (data.length === 0) {
         navigate('/cart');
       }
     } catch (error) {
@@ -41,8 +48,8 @@ function Checkout() {
 
     setSubmitting(true);
     try {
-      const response = await axios.post('/api/orders', { address });
-      alert(`Pesanan berhasil dibuat! Nomor pesanan: ${response.data.orderNumber}`);
+      const order = await apiCreateOrder(user, address);
+      alert(`Pesanan berhasil dibuat! Nomor pesanan: ${order.orderNumber}`);
       navigate('/orders');
     } catch (error) {
       console.error('Error creating order:', error);

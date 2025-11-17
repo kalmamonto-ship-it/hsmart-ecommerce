@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import {
+  apiGetProductById,
+  apiAddToCart
+} from '../mockApi';
 import './ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
@@ -17,8 +22,8 @@ function ProductDetail() {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`/api/products/${id}`);
-      setProduct(response.data);
+      const data = await apiGetProductById(id);
+      setProduct(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching product:', error);
@@ -27,6 +32,11 @@ function ProductDetail() {
   };
 
   const handleAddToCart = async () => {
+    if (!isAuthenticated || !user) {
+      alert('Silakan login terlebih dahulu untuk menambahkan ke keranjang.');
+      navigate('/login');
+      return;
+    }
     if (product.stock === 0) {
       alert('Produk sedang tidak tersedia');
       return;
@@ -39,10 +49,7 @@ function ProductDetail() {
 
     setAddingToCart(true);
     try {
-      await axios.post('/api/cart', {
-        productId: product.id,
-        quantity: quantity
-      });
+      await apiAddToCart(user.id, product.id, quantity);
       alert('Produk berhasil ditambahkan ke keranjang!');
       navigate('/cart');
     } catch (error) {

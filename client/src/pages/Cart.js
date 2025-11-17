@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import {
+  apiGetCart,
+  apiUpdateCartItem,
+  apiRemoveCartItem
+} from '../mockApi';
 import './Cart.css';
 
 function Cart() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (isAuthenticated && user) {
+      fetchCart();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated, user]);
 
   const fetchCart = async () => {
     try {
-      const response = await axios.get('/api/cart');
-      setCart(response.data);
+      const data = await apiGetCart(user.id);
+      setCart(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching cart:', error);
@@ -30,7 +40,7 @@ function Cart() {
     }
 
     try {
-      await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
+      await apiUpdateCartItem(user.id, itemId, newQuantity);
       fetchCart();
     } catch (error) {
       console.error('Error updating cart:', error);
@@ -40,7 +50,7 @@ function Cart() {
 
   const removeItem = async (itemId) => {
     try {
-      await axios.delete(`/api/cart/${itemId}`);
+      await apiRemoveCartItem(user.id, itemId);
       fetchCart();
     } catch (error) {
       console.error('Error removing item:', error);

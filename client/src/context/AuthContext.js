@@ -1,13 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
-
-// API URL dari environment variable atau default ke localhost
-const API_URL = process.env.REACT_APP_API_URL || '';
-
-// Set default base URL untuk axios
-if (API_URL) {
-  axios.defaults.baseURL = API_URL;
-}
+import {
+  apiLogin,
+  apiRegister,
+  apiGetCurrentUser
+} from '../mockApi';
 
 const AuthContext = createContext();
 
@@ -32,14 +28,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const response = await axios.get('/api/auth/me');
-        setUser(response.data);
+        const currentUser = await apiGetCurrentUser(token);
+        setUser(currentUser);
         setIsAuthenticated(true);
       }
     } catch (error) {
       localStorage.removeItem('token');
-      delete axios.defaults.headers.common['Authorization'];
     } finally {
       setLoading(false);
     }
@@ -47,45 +41,36 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
-      const { token, user } = response.data;
+      const { token, user } = await apiLogin({ email, password });
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(user);
       setIsAuthenticated(true);
       return { success: true };
     } catch (error) {
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Login failed' 
+        error: error.message || 'Login gagal' 
       };
     }
   };
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post('/api/auth/register', { 
-        name, 
-        email, 
-        password 
-      });
-      const { token, user } = response.data;
+      const { token, user } = await apiRegister({ name, email, password });
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(user);
       setIsAuthenticated(true);
       return { success: true };
     } catch (error) {
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Registration failed' 
+        error: error.message || 'Registrasi gagal' 
       };
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
     setUser(null);
     setIsAuthenticated(false);
   };

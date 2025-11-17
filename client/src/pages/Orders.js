@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import { apiGetOrders } from '../mockApi';
 import './Orders.css';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    if (user) {
+      fetchOrders();
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('/api/orders');
+      const data = await apiGetOrders(user);
       // Sort by newest first
-      const sortedOrders = response.data.sort((a, b) => 
+      const sortedOrders = data.sort((a, b) => 
         new Date(b.createdAt) - new Date(a.createdAt)
       );
       setOrders(sortedOrders);

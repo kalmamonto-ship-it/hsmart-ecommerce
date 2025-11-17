@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import {
+  apiGetProducts,
+  apiSaveProduct,
+  apiDeleteProduct,
+  apiGetOrders,
+  apiUpdateOrderStatus
+} from '../mockApi';
 import './Admin.css';
 
 function Admin() {
@@ -18,18 +25,25 @@ function Admin() {
     stock: ''
   });
 
+  const { user } = useAuth();
+
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     if (activeTab === 'products') {
       fetchProducts();
     } else {
       fetchOrders();
     }
-  }, [activeTab]);
+  }, [activeTab, user]);
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('/api/products');
-      setProducts(response.data);
+      const data = await apiGetProducts();
+      setProducts(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -39,8 +53,8 @@ function Admin() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('/api/orders');
-      const sortedOrders = response.data.sort((a, b) => 
+      const data = await apiGetOrders(user);
+      const sortedOrders = data.sort((a, b) => 
         new Date(b.createdAt) - new Date(a.createdAt)
       );
       setOrders(sortedOrders);
@@ -87,11 +101,7 @@ function Admin() {
   const handleSubmitProduct = async (e) => {
     e.preventDefault();
     try {
-      if (editingProduct) {
-        await axios.put(`/api/products/${editingProduct.id}`, productForm);
-      } else {
-        await axios.post('/api/products', productForm);
-      }
+      await apiSaveProduct(productForm, editingProduct?.id || null);
       setShowProductForm(false);
       fetchProducts();
       alert(editingProduct ? 'Produk berhasil diupdate' : 'Produk berhasil ditambahkan');
@@ -104,7 +114,7 @@ function Admin() {
   const handleDeleteProduct = async (id) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
       try {
-        await axios.delete(`/api/products/${id}`);
+        await apiDeleteProduct(id);
         fetchProducts();
         alert('Produk berhasil dihapus');
       } catch (error) {
@@ -116,7 +126,7 @@ function Admin() {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
-      await axios.put(`/api/orders/${orderId}/status`, { status: newStatus });
+      await apiUpdateOrderStatus(orderId, newStatus);
       fetchOrders();
       alert('Status pesanan berhasil diupdate');
     } catch (error) {

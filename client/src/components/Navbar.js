@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import { apiGetCart } from '../mockApi';
 import './Navbar.css';
 
 function Navbar() {
@@ -10,17 +10,17 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       fetchCartCount();
       const interval = setInterval(fetchCartCount, 2000);
       return () => clearInterval(interval);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   const fetchCartCount = async () => {
     try {
-      const response = await axios.get('/api/cart');
-      const total = response.data.reduce((sum, item) => sum + item.quantity, 0);
+      const items = await apiGetCart(user.id);
+      const total = items.reduce((sum, item) => sum + item.quantity, 0);
       setCartCount(total);
     } catch (error) {
       // Ignore errors if not authenticated
