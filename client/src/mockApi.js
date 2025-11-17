@@ -5,6 +5,8 @@ const USERS_KEY = 'hsmart_users';
 const PRODUCTS_KEY = 'hsmart_products';
 const ORDERS_KEY = 'hsmart_orders';
 const CART_KEY_PREFIX = 'hsmart_cart_';
+const SCHEMA_VERSION_KEY = 'hsmart_schema_version';
+const CURRENT_SCHEMA_VERSION = '1.1';
 
 function delay(ms = 300) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -29,6 +31,20 @@ function getCartKey(userId) {
 }
 
 function ensureSeedData() {
+  // Jika versi schema berubah, reset data demo agar seed terbaru kepakai
+  const storedVersion = localStorage.getItem(SCHEMA_VERSION_KEY);
+  if (storedVersion !== CURRENT_SCHEMA_VERSION) {
+    localStorage.removeItem(USERS_KEY);
+    localStorage.removeItem(PRODUCTS_KEY);
+    localStorage.removeItem(ORDERS_KEY);
+    // Hapus semua cart per user
+    Object.keys(localStorage)
+      .filter((key) => key.startsWith(CART_KEY_PREFIX))
+      .forEach((key) => localStorage.removeItem(key));
+
+    localStorage.setItem(SCHEMA_VERSION_KEY, CURRENT_SCHEMA_VERSION);
+  }
+
   // Seed user admin
   let users = load(USERS_KEY, null);
   if (!users) {
