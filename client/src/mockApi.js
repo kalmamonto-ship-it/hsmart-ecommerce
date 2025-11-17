@@ -83,7 +83,7 @@ function ensureSeedData() {
             rating: 5,
             comment:
               'Laptopnya enteng banget dibawa ke kampus, baterai kuat buat meeting online seharian.',
-            date: '2024-10-02'
+            date: '2025-01-12'
           },
           {
             id: 'rev-lap-2',
@@ -91,7 +91,7 @@ function ensureSeedData() {
             rating: 4.8,
             comment:
               'Performa SSD ngebut, cocok buat multitasking kerja remote. Packaging rapih.',
-            date: '2024-11-01'
+            date: '2025-02-06'
           }
         ]
       },
@@ -113,7 +113,7 @@ function ensureSeedData() {
             rating: 5,
             comment:
               'Noise cancelling-nya beneran bantu fokus. Meeting Zoom jadi jauh lebih nyaman.',
-            date: '2024-08-18'
+            date: '2025-03-10'
           },
           {
             id: 'rev-head-2',
@@ -121,7 +121,7 @@ function ensureSeedData() {
             rating: 4.9,
             comment:
               'Dipakai nugas malam nggak bikin sakit kuping. Suara musik detail.',
-            date: '2024-09-22'
+            date: '2025-04-04'
           }
         ]
       },
@@ -143,7 +143,7 @@ function ensureSeedData() {
             rating: 4.7,
             comment:
               'Kompartemennya banyak jadi charger dan buku tidak bercampur. Anti air juga terbukti.',
-            date: '2024-07-05'
+            date: '2025-05-09'
           },
           {
             id: 'rev-bag-2',
@@ -151,7 +151,7 @@ function ensureSeedData() {
             rating: 4.8,
             comment:
               'Desain minimalis, muat laptop 15 inch dan tablet. Recommended buat kerja mobile.',
-            date: '2024-09-10'
+            date: '2025-06-21'
           }
         ]
       },
@@ -173,7 +173,7 @@ function ensureSeedData() {
             rating: 4.9,
             comment:
               'Stand laptop bikin posisi layar sejajar mata, mousepad lebar bikin meja rapi.',
-            date: '2024-08-30'
+            date: '2025-07-14'
           },
           {
             id: 'rev-desk-2',
@@ -181,7 +181,7 @@ function ensureSeedData() {
             rating: 4.8,
             comment:
               'Set meja terlihat estetik di video call, gampang dibersihkan.',
-            date: '2024-10-11'
+            date: '2025-08-18'
           }
         ]
       },
@@ -203,7 +203,7 @@ function ensureSeedData() {
             rating: 4.9,
             comment:
               'Ring light & mic USB langsung siap pakai buat webinar kampus.',
-            date: '2024-08-25'
+            date: '2025-09-07'
           },
           {
             id: 'rev-kit-2',
@@ -211,7 +211,7 @@ function ensureSeedData() {
             rating: 4.7,
             comment:
               'Tripod kokoh untuk konten TikTok, kualitas mic cukup jernih.',
-            date: '2024-10-05'
+            date: '2025-10-12'
           }
         ]
       },
@@ -233,7 +233,7 @@ function ensureSeedData() {
             rating: 5,
             comment:
               'Template-nya lengkap banget, ada tracker tugas, finansial, dan habit.',
-            date: '2024-06-15'
+            date: '2025-11-03'
           },
           {
             id: 'rev-notion-2',
@@ -241,7 +241,97 @@ function ensureSeedData() {
             rating: 4.8,
             comment:
               'Tinggal duplicate, langsung siap pakai buat koordinasi tim kampus.',
-            date: '2024-09-28'
+            date: '2025-11-18'
+          }
+        ]
+      },
+      {
+        id: '7',
+        name: 'Monitor Portable 15.6" FlexView IPS',
+        price: 3450000,
+        description:
+          'Monitor portable full HD dengan cover magnetik untuk second screen saat kerja hybrid atau presentasi kampus.',
+        image:
+          'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500',
+        category: 'Elektronik',
+        stock: 15,
+        sold: 44,
+        reviews: [
+          {
+            id: 'rev-monitor-1',
+            customer: 'Riri Data Analyst',
+            rating: 4.8,
+            comment:
+              'Enak banget buat kerja di coffee shop, tinggal sambung USB-C langsung nyala.',
+            date: '2025-04-22'
+          },
+          {
+            id: 'rev-monitor-2',
+            customer: 'Yoga Presentasi',
+            rating: 4.9,
+            comment:
+              'Layar tajam, jadi gampang nunjukin slide tanpa rebutan laptop.',
+            date: '2025-06-03'
+          }
+        ]
+      },
+      {
+        id: '8',
+        name: 'Kursi Ergonomis Compact SitWell',
+        price: 1950000,
+        description:
+          'Kursi ergonomis dengan lumbar support dan armrest flip-up yang muat di kamar kos kecil.',
+        image:
+          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500',
+        category: 'Aksesoris',
+        stock: 25,
+        sold: 68,
+        reviews: [
+          {
+            id: 'rev-chair-1',
+            customer: 'Gilang Editor Video',
+            rating: 4.8,
+            comment:
+              'Punggung nggak gampang pegal lagi, pemasangan cuma 15 menit.',
+            date: '2025-05-27'
+          },
+          {
+            id: 'rev-chair-2',
+            customer: 'Vina Thesis',
+            rating: 5,
+            comment:
+              'Armrest bisa dinaikkan jadi gampang masuk ke meja lipat kos.',
+            date: '2025-07-02'
+          }
+        ]
+      },
+      {
+        id: '9',
+        name: 'Smart Bottle Reminder Hydrate+',
+        price: 275000,
+        description:
+          'Botol minum pintar dengan pengingat LED untuk menjaga hidrasi saat belajar atau kerja panjang.',
+        image:
+          'https://images.unsplash.com/photo-1542444459-db6318d691bf?w=500',
+        category: 'Kesehatan',
+        stock: 60,
+        sold: 150,
+        reviews: [
+          {
+            id: 'rev-bottle-1',
+            customer: 'Mira Product Manager',
+            rating: 4.7,
+            comment:
+              'LED berkedip lembut tiap jam, jadi nggak lupa minum pas sprint planning.',
+            date: '2025-02-18'
+          },
+          {
+            id: 'rev-bottle-2',
+            customer: 'Andi Co-working',
+            rating: 4.9,
+            comment:
+              'Suhu air tetap dingin 8 jam, cocok dibawa maraton meeting.',
+            date: '2025-03-28'
           }
         ]
       }
