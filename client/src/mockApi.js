@@ -6,7 +6,7 @@ const PRODUCTS_KEY = 'hsmart_products';
 const ORDERS_KEY = 'hsmart_orders';
 const CART_KEY_PREFIX = 'hsmart_cart_';
 const SCHEMA_VERSION_KEY = 'hsmart_schema_version';
-const CURRENT_SCHEMA_VERSION = '1.2';
+const CURRENT_SCHEMA_VERSION = '1.3';
 
 function delay(ms = 300) {
   return new Promise(resolve => setTimeout(resolve, ms));
