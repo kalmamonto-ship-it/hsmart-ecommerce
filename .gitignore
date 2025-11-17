@@ -1,7 +1,6 @@
 # Dependencies
 node_modules/
 /client/node_modules
-/server/node_modules
 
 # Production builds
 /client/build
@@ -31,11 +30,7 @@ Thumbs.db
 *.swo
 *~
 
-# Data files (optional - uncomment if you don't want to commit data)
-# /server/data/*.json
-
-# Environment variables
+# Environment variables (legacy)
 .env
 .env.local
 .env.production
-

@@ -1,206 +1,96 @@
-# 🚀 Panduan Deployment Aplikasi E-Commerce
+# 🚀 Panduan Deployment (Frontend Only)
 
-Panduan lengkap untuk deploy aplikasi ini ke internet agar bisa diakses oleh banyak orang.
+Panduan terbaru untuk mendeploy HSMart versi frontend-only ke Vercel. Backend tidak lagi menjadi bagian repo ini, jadi kamu bebas memakai API eksternal mana pun (atau mock server sendiri).
 
 ## 📋 Prerequisites
 
-- Akun GitHub (gratis)
-- Akun Vercel (untuk frontend) - https://vercel.com
-- Akun Railway atau Render (untuk backend) - https://railway.app atau https://render.com
+- Akun GitHub
+- Akun Vercel
+- URL API yang kompatibel (opsional, tapi diperlukan jika ingin semua fitur berjalan)
 
 ---
 
-## 🎯 Strategi Deployment
+## 📦 Step 1 – Siapkan Repository
 
-### **Frontend (React) → Vercel**
-- Gratis, mudah, dan cepat
-- Auto-deploy dari GitHub
-- HTTPS otomatis
-
-### **Backend (Node.js) → Railway atau Render**
-- Railway: Gratis tier tersedia
-- Render: Gratis tier tersedia
-- Support Node.js dengan mudah
-
----
-
-## 📦 Step 1: Persiapan Repository
-
-1. **Buat repository GitHub:**
+1. Pastikan project ini sudah berada di GitHub.
+2. Jika belum, jalankan:
    ```bash
    git init
    git add .
    git commit -m "Initial commit"
    git branch -M main
-   git remote add origin https://github.com/USERNAME/ecommerce-digital-entrepreneurship.git
+   git remote add origin https://github.com/USERNAME/hsmart-ecommerce.git
    git push -u origin main
    ```
 
-2. **Buat file `.gitignore`** (sudah ada):
-   - Pastikan `server/data/` tidak di-commit (data akan dibuat di server)
-
 ---
 
-## 🔧 Step 2: Deploy Backend ke Railway
+## 🌐 Step 2 – Deploy Manual ke Vercel
 
-### **A. Setup Railway:**
-
-1. **Daftar di Railway:**
-   - Kunjungi https://railway.app
-   - Sign up dengan GitHub
-
-2. **Create New Project:**
-   - Klik "New Project"
-   - Pilih "Deploy from GitHub repo"
-   - Pilih repository Anda
-
-3. **Configure Backend:**
-   - Railway akan auto-detect Node.js
-   - Set **Root Directory** ke: `server`
-   - Set **Start Command** ke: `node index.js`
-
-4. **Set Environment Variables:**
-   - Di Railway dashboard, buka "Variables"
-   - Tambahkan:
-     ```
-     JWT_SECRET=your-very-secret-key-minimum-32-characters-random-string
-     PORT=5000
-     NODE_ENV=production
-     ```
-
-5. **Get Backend URL:**
-   - Railway akan memberikan URL seperti: `https://your-app.railway.app`
-   - Copy URL ini untuk digunakan di frontend
-
----
-
-## 🌐 Step 3: Deploy Frontend ke Vercel
-
-### **A. Setup Vercel:**
-
-1. **Daftar di Vercel:**
-   - Kunjungi https://vercel.com
-   - Sign up dengan GitHub
-
-2. **Import Project:**
-   - Klik "Add New Project"
-   - Pilih repository GitHub Anda
-   - Vercel akan auto-detect React
-
-3. **Configure Frontend:**
-   - **Framework Preset:** Create React App
+1. Login ke https://vercel.com dan pilih **Add New → Project**.
+2. Import repo GitHub kamu.
+3. Konfigurasi:
+   - **Framework Preset:** Create React App (auto terdeteksi)
    - **Root Directory:** `client`
    - **Build Command:** `npm run build`
    - **Output Directory:** `build`
+4. Tambahkan environment variable (opsional tapi direkomendasikan):
+   - Name: `REACT_APP_API_URL`
+   - Value: `https://api-kamu.com` (atau URL API apa pun yang ingin dipakai)
+5. Klik **Deploy**. Setelah selesai, Vercel akan memberi URL publik (contoh: `https://hsmart.vercel.app`).
 
-4. **Set Environment Variables:**
-   - Tambahkan:
-     ```
-     REACT_APP_API_URL=https://your-backend-url.railway.app
-     ```
-
-5. **Update API Proxy:**
-   - Edit `client/package.json`
-   - Ganti `"proxy": "http://localhost:5000"` dengan:
-     ```json
-     "proxy": "https://your-backend-url.railway.app"
-     ```
-
-6. **Deploy:**
-   - Klik "Deploy"
-   - Tunggu sampai selesai
-   - Vercel akan memberikan URL seperti: `https://your-app.vercel.app`
+> Tanpa API yang valid, request login/cart akan gagal. Pastikan API kamu mengizinkan origin dari domain Vercel tersebut.
 
 ---
 
-## 🔄 Step 4: Update Frontend untuk Production
+## 🤖 Step 3 – Auto Deploy via GitHub Actions
 
-### **Update `client/src/context/AuthContext.js`:**
+Repo ini sudah punya workflow `.github/workflows/deploy.yml`. Langkahnya:
 
-Ganti base URL axios:
+1. Di GitHub repo → `Settings → Secrets and variables → Actions`.
+2. Tambahkan tiga secrets:
+   | Nama | Nilai |
+   | --- | --- |
+   | `VERCEL_TOKEN` | Token pribadi Vercel (`Account Settings → Tokens`). |
+   | `VERCEL_ORG_ID` | ID organisasi/team (lihat `Project → Settings → General`). |
+   | `VERCEL_PROJECT_ID` | ID project frontend (halaman yang sama). |
+3. Set juga `REACT_APP_API_URL` di dashboard Vercel (Project → Settings → Environment Variables).
+4. Setiap push ke `main` akan otomatis:
+   - Checkout repo
+   - `npm ci` + `npm run build` di folder `client`
+   - Deploy ke Vercel (production)
 
-```javascript
-// Di bagian atas file
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
-// Update semua axios calls
-axios.get(`${API_URL}/api/...`)
-```
-
-Atau buat file `client/src/config.js`:
-
-```javascript
-export const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-```
-
----
-
-## ✅ Step 5: Testing
-
-1. **Test Backend:**
-   - Buka: `https://your-backend.railway.app/api/health`
-   - Harus return: `{"status":"OK","message":"Server is running"}`
-
-2. **Test Frontend:**
-   - Buka URL Vercel Anda
-   - Coba register user baru
-   - Coba login
-   - Test semua fitur
+Kalau workflow gagal, cek tab **Actions** untuk detail log.
 
 ---
 
-## 🔐 Step 6: Security Checklist
+## ✅ Step 4 – Testing
 
-- [ ] JWT_SECRET sudah diubah (jangan pakai default)
-- [ ] Environment variables tidak di-commit ke GitHub
-- [ ] CORS sudah dikonfigurasi dengan benar
-- [ ] HTTPS aktif (otomatis di Vercel/Railway)
-
----
-
-## 📝 Catatan Penting
-
-1. **Data Storage:**
-   - Data disimpan di `server/data/` di Railway
-   - Data akan hilang jika project di-delete
-   - Untuk production, pertimbangkan database (MongoDB, PostgreSQL)
-
-2. **CORS:**
-   - Backend sudah dikonfigurasi untuk allow semua origin
-   - Untuk production, bisa dibatasi ke domain Vercel saja
-
-3. **Default Admin:**
-   - Email: `admin@ecommerce.com`
-   - Password: `admin123`
-   - **UBAH PASSWORD INI SETELAH DEPLOY!**
+1. Buka URL Vercel.
+2. Cek halaman beranda, produk, cart, checkout, admin.
+3. Jika ada request yang gagal, buka DevTools (F12) → tab Network/Console untuk melihat error (biasanya 404/CORS karena API tidak tersedia).
 
 ---
 
-## 🆘 Troubleshooting
+## 🛠 Troubleshooting
 
-### **Backend tidak bisa diakses:**
-- Cek environment variables
-- Cek logs di Railway dashboard
-- Pastikan PORT sudah di-set
-
-### **Frontend error saat call API:**
-- Cek REACT_APP_API_URL sudah benar
-- Cek CORS di backend
-- Cek network tab di browser console
-
-### **Login tidak bekerja:**
-- Cek JWT_SECRET sudah di-set
-- Cek backend logs untuk error
-- Pastikan axios headers sudah benar
+| Masalah | Solusi |
+| --- | --- |
+| Build error di Vercel | Pastikan `client/package-lock.json` sinkron dengan `package.json`, jalankan `npm run build` lokal. |
+| Request API gagal | Pastikan `REACT_APP_API_URL` sudah benar, API mengizinkan origin domain kamu, dan endpoint tersebut tersedia. |
+| GitHub Actions gagal | Cek apakah secrets Vercel sudah benar dan workflow punya akses ke repo. |
+| Halaman blank setelah deploy | Biasanya karena runtime error. Buka tab Console pada browser untuk melihat stack trace. |
 
 ---
 
-## 🎉 Selesai!
+## ☑️ Checklist Sebelum Share
 
-Setelah deployment selesai:
-- Share URL Vercel ke teman-teman
-- Mereka bisa register dan membuat order fiktif
-- Admin bisa login dan manage produk/pesanan
+- [ ] URL Vercel sudah bisa diakses publik
+- [ ] `REACT_APP_API_URL` terisi dan API merespons
+- [ ] Semua halaman utama (Home, Produk, Cart, Checkout, Admin) sudah dicoba
+- [ ] Screenshot/recording siap untuk presentasi
 
-**Selamat! Aplikasi Anda sudah online! 🚀**
+---
+
+Selamat! Versi frontend HSMart kini siap online tanpa perlu mengelola server sendiri. 🎉
 

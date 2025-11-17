@@ -3,12 +3,6 @@
   "outputDirectory": "build",
   "devCommand": "npm start",
   "installCommand": "npm install",
-  "framework": "create-react-app",
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://your-backend-url.railway.app/api/$1"
-    }
-  ]
+  "framework": "create-react-app"
 }
 

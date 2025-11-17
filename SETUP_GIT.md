@@ -1,6 +1,6 @@
 # 🔧 Setup Git untuk Deployment
 
-Git diperlukan untuk push code ke GitHub, yang kemudian akan di-deploy ke Railway dan Vercel.
+Git diperlukan untuk push code ke GitHub, yang kemudian akan di-deploy otomatis ke Vercel.
 
 ---
 
@@ -108,10 +108,10 @@ Jika Git tidak bisa diinstall, bisa upload manual:
 
 ## 📝 Setelah Git Setup
 
-Setelah Git berhasil setup dan code sudah di GitHub, lanjutkan ke deployment:
+Setelah Git berhasil setup dan code sudah di GitHub, lanjutkan ke deployment frontend:
 
-1. **Railway:** https://railway.app → Deploy from GitHub
-2. **Vercel:** https://vercel.com → Import from GitHub
+- **Vercel:** https://vercel.com → Import from GitHub
+- (Opsional) Platform backend/API eksternal jika dibutuhkan
 
 ---
 
