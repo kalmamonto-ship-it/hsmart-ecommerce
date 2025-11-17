@@ -1,19 +1,20 @@
-# ✨ HSMart - Frontend SPA
+# ✨ HSMart - Perlengkapan Produktivitas Mahasiswa
 
-HSMart sekarang difokuskan sebagai aplikasi React single-page (SPA) yang bisa dikoneksikan ke API manapun melalui environment variable `REACT_APP_API_URL`. Semua file backend lama sudah dihapus supaya repo ini ringan dan siap di-deploy cepat via Vercel.
+HSMart adalah aplikasi e-commerce (React SPA) yang mensimulasikan toko **perlengkapan produktivitas untuk mahasiswa & pekerja muda**. Di dalamnya ada katalog laptop kerja ringan, headphone noise cancelling, tas ransel laptop, desk set ergonomis, starter kit konten kreator, dan satu produk digital berupa template Notion planner.
 
 **Dibuat oleh:** Haikal Saputra Mamonto  
 **NIM:** 231011402017
 
-## ✨ Fitur
+## ✨ Fitur Utama
 
-- ✅ Halaman beranda dengan hero section dan highlight produk
-- ✅ Browse katalog lengkap + detail produk
-- ✅ Keranjang dan checkout (mengirim request ke API yang kamu tentukan)
-- ✅ Auth + halaman admin (bergantung pada API yang tersedia)
-- ✅ Routing terproteksi & state global AuthContext
+- ✅ Halaman beranda dengan hero section yang menjelaskan fokus bisnis (produktivitias mahasiswa/pekerja muda)
+- ✅ Katalog produk: elektronik, aksesoris, kreatif, dan produk digital (template Notion)
+- ✅ Detail produk + stok + kategori yang relevan dengan tema produktivitas
+- ✅ Keranjang & checkout yang menyimpan data di `localStorage` (tanpa backend)
+- ✅ Auth (register/login) dengan akun admin dan customer, plus halaman admin untuk kelola produk & pesanan
+- ✅ Routing terproteksi & state global `AuthContext`
 
-> Karena backend tidak lagi disertakan, pastikan Anda memiliki API yang kompatibel (atau mock server sendiri) untuk menangani autentikasi, produk, cart, dan orders.
+> Implementasi saat ini menggunakan **mock API berbasis `localStorage`** (`client/src/mockApi.js`) sehingga seluruh alur bisnis (register, login, cart, orders, admin) dapat didemokan tanpa server terpisah.
 
 ## 🧱 Teknologi
 

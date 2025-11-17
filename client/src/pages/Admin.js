@@ -154,7 +154,7 @@ function Admin() {
     });
   };
 
-  const categories = ['Elektronik', 'Fashion', 'Aksesoris', 'Lainnya'];
+  const categories = ['Elektronik', 'Aksesoris', 'Kreatif', 'Produk Digital'];
 
   return (
     <div className="admin-page">

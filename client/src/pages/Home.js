@@ -39,10 +39,13 @@ function Home() {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Selamat Datang di HSMart</h1>
-            <p>Platform digital modern untuk kebutuhan belanja Anda</p>
+            <h1>Perlengkapan Produktivitas untuk Mahasiswa & Pekerja Muda</h1>
+            <p>
+              HSMart membantu kamu belajar dan bekerja lebih fokus dengan laptop, aksesoris,
+              dan alat kreatif pilihan.
+            </p>
             <Link to="/products" className="btn btn-primary">
-              Jelajahi Produk
+              Jelajahi Produk Produktivitas
             </Link>
           </div>
         </div>

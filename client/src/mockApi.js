@@ -45,53 +45,75 @@ function ensureSeedData() {
     save(USERS_KEY, users);
   }
 
-  // Seed produk dasar
+  // Seed produk dasar: perlengkapan produktivitas mahasiswa & pekerja muda
   let products = load(PRODUCTS_KEY, null);
   if (!products) {
     products = [
       {
         id: '1',
-        name: 'Laptop ASUS ROG Strix',
-        price: 15000000,
+        name: 'Laptop Kerja Ringan 14" HSMart Pro',
+        price: 9500000,
         description:
-          'Laptop gaming high performance dengan processor Intel i7 dan GPU RTX 4060',
+          'Laptop 14 inci ringan dengan SSD 512GB dan RAM 16GB, ideal untuk kuliah online, kerja remote, dan multitasking harian.',
         image:
           'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500',
         category: 'Elektronik',
-        stock: 10
+        stock: 12
       },
       {
         id: '2',
-        name: 'Smartphone Samsung Galaxy S24',
-        price: 12000000,
+        name: 'Headphone Noise Cancelling Focus+',
+        price: 1850000,
         description:
-          'Smartphone flagship dengan kamera 108MP dan layar AMOLED 120Hz',
+          'Headphone wireless dengan active noise cancelling untuk bantu kamu fokus saat belajar dan meeting online.',
         image:
-          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500',
+          'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=500',
         category: 'Elektronik',
-        stock: 15
+        stock: 20
       },
       {
         id: '3',
-        name: 'Sepatu Nike Air Max',
-        price: 1500000,
+        name: 'Tas Ransel Laptop Anti Air UrbanPack',
+        price: 425000,
         description:
-          'Sepatu olahraga dengan teknologi Air Max untuk kenyamanan maksimal',
-        image:
-          'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
-        category: 'Fashion',
-        stock: 25
-      },
-      {
-        id: '4',
-        name: 'Tas Ransel Backpack',
-        price: 450000,
-        description:
-          'Tas ransel anti air dengan banyak kompartemen, cocok untuk traveling',
+          'Backpack minimalis muat laptop 15.6", banyak kompartemen untuk buku, charger, dan mouse. Cocok untuk kampus & kantor.',
         image:
           'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
         category: 'Aksesoris',
         stock: 30
+      },
+      {
+        id: '4',
+        name: 'Desk Set Produktif (Mousepad XXL + Stand Laptop)',
+        price: 275000,
+        description:
+          'Paket alas meja lebar dan stand laptop aluminium untuk posisi kerja yang ergonomis dan rapi.',
+        image:
+          'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=500',
+        category: 'Aksesoris',
+        stock: 40
+      },
+      {
+        id: '5',
+        name: 'Starter Kit Konten Kreator Kampus',
+        price: 1350000,
+        description:
+          'Paket ring light, tripod meja, dan mikrofon USB untuk presentasi online, rekaman video tugas, dan konten media sosial.',
+        image:
+          'https://images.unsplash.com/photo-1518895949257-7621c3c786d4?w=500',
+        category: 'Kreatif',
+        stock: 18
+      },
+      {
+        id: '6',
+        name: 'Template Notion Planner Produktivitas Mahasiswa',
+        price: 75000,
+        description:
+          'Template digital Notion untuk mengatur jadwal kuliah, to-do list, deadline tugas, dan catatan proyek dalam satu tempat.',
+        image:
+          'https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500',
+        category: 'Produk Digital',
+        stock: 999
       }
     ];
     save(PRODUCTS_KEY, products);
