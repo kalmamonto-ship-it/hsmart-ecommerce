@@ -6,7 +6,7 @@ const PRODUCTS_KEY = 'hsmart_products';
 const ORDERS_KEY = 'hsmart_orders';
 const CART_KEY_PREFIX = 'hsmart_cart_';
 const SCHEMA_VERSION_KEY = 'hsmart_schema_version';
-const CURRENT_SCHEMA_VERSION = '1.1';
+const CURRENT_SCHEMA_VERSION = '1.2';
 
 function delay(ms = 300) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -75,7 +75,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500',
         category: 'Elektronik',
         stock: 12,
-        sold: 37
+        sold: 37,
+        reviews: [
+          {
+            id: 'rev-lap-1',
+            customer: 'Budi Mahasiswa',
+            rating: 5,
+            comment:
+              'Laptopnya enteng banget dibawa ke kampus, baterai kuat buat meeting online seharian.',
+            date: '2024-10-02'
+          },
+          {
+            id: 'rev-lap-2',
+            customer: 'Tania Remote Worker',
+            rating: 4.8,
+            comment:
+              'Performa SSD ngebut, cocok buat multitasking kerja remote. Packaging rapih.',
+            date: '2024-11-01'
+          }
+        ]
       },
       {
         id: '2',
@@ -87,7 +105,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=500',
         category: 'Elektronik',
         stock: 20,
-        sold: 84
+        sold: 84,
+        reviews: [
+          {
+            id: 'rev-head-1',
+            customer: 'Sari Remote Worker',
+            rating: 5,
+            comment:
+              'Noise cancelling-nya beneran bantu fokus. Meeting Zoom jadi jauh lebih nyaman.',
+            date: '2024-08-18'
+          },
+          {
+            id: 'rev-head-2',
+            customer: 'Raka Final Project',
+            rating: 4.9,
+            comment:
+              'Dipakai nugas malam nggak bikin sakit kuping. Suara musik detail.',
+            date: '2024-09-22'
+          }
+        ]
       },
       {
         id: '3',
@@ -99,7 +135,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
         category: 'Aksesoris',
         stock: 30,
-        sold: 120
+        sold: 120,
+        reviews: [
+          {
+            id: 'rev-bag-1',
+            customer: 'Lina Magang',
+            rating: 4.7,
+            comment:
+              'Kompartemennya banyak jadi charger dan buku tidak bercampur. Anti air juga terbukti.',
+            date: '2024-07-05'
+          },
+          {
+            id: 'rev-bag-2',
+            customer: 'Doni Freelancer',
+            rating: 4.8,
+            comment:
+              'Desain minimalis, muat laptop 15 inch dan tablet. Recommended buat kerja mobile.',
+            date: '2024-09-10'
+          }
+        ]
       },
       {
         id: '4',
@@ -111,7 +165,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=500',
         category: 'Aksesoris',
         stock: 40,
-        sold: 56
+        sold: 56,
+        reviews: [
+          {
+            id: 'rev-desk-1',
+            customer: 'Nadia UI/UX',
+            rating: 4.9,
+            comment:
+              'Stand laptop bikin posisi layar sejajar mata, mousepad lebar bikin meja rapi.',
+            date: '2024-08-30'
+          },
+          {
+            id: 'rev-desk-2',
+            customer: 'Fauzan Content Creator',
+            rating: 4.8,
+            comment:
+              'Set meja terlihat estetik di video call, gampang dibersihkan.',
+            date: '2024-10-11'
+          }
+        ]
       },
       {
         id: '5',
@@ -123,7 +195,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1518895949257-7621c3c786d4?w=500',
         category: 'Kreatif',
         stock: 18,
-        sold: 22
+        sold: 22,
+        reviews: [
+          {
+            id: 'rev-kit-1',
+            customer: 'Sari Remote Worker',
+            rating: 4.9,
+            comment:
+              'Ring light & mic USB langsung siap pakai buat webinar kampus.',
+            date: '2024-08-25'
+          },
+          {
+            id: 'rev-kit-2',
+            customer: 'Andra Podcaster',
+            rating: 4.7,
+            comment:
+              'Tripod kokoh untuk konten TikTok, kualitas mic cukup jernih.',
+            date: '2024-10-05'
+          }
+        ]
       },
       {
         id: '6',
@@ -135,7 +225,25 @@ function ensureSeedData() {
           'https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=500',
         category: 'Produk Digital',
         stock: 999,
-        sold: 210
+        sold: 210,
+        reviews: [
+          {
+            id: 'rev-notion-1',
+            customer: 'Mega Organiser',
+            rating: 5,
+            comment:
+              'Template-nya lengkap banget, ada tracker tugas, finansial, dan habit.',
+            date: '2024-06-15'
+          },
+          {
+            id: 'rev-notion-2',
+            customer: 'Reyhan Tim Capstone',
+            rating: 4.8,
+            comment:
+              'Tinggal duplicate, langsung siap pakai buat koordinasi tim kampus.',
+            date: '2024-09-28'
+          }
+        ]
       }
     ];
     save(PRODUCTS_KEY, products);

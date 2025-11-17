@@ -57,6 +57,12 @@ function Products() {
     }).format(price);
   };
 
+  const getAverageRating = (product) => {
+    if (!product.reviews || product.reviews.length === 0) return null;
+    const total = product.reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (total / product.reviews.length).toFixed(1);
+  };
+
   if (loading) {
     return <div className="loading">Memuat produk...</div>;
   }
@@ -113,6 +119,11 @@ function Products() {
                     <div className="product-info">
                       <h3>{product.name}</h3>
                       <p className="product-category">{product.category}</p>
+                      {getAverageRating(product) && (
+                        <p className="product-rating">
+                          ⭐ {getAverageRating(product)} ({product.reviews.length} ulasan)
+                        </p>
+                      )}
                       <p className="product-price">{formatPrice(product.price)}</p>
                       <p className="product-stock">
                         Stok: {product.stock} &nbsp;•&nbsp; Terjual: {product.sold || 0}

@@ -68,6 +68,12 @@ function ProductDetail() {
     }).format(price);
   };
 
+  const getAverageRating = () => {
+    if (!product.reviews || product.reviews.length === 0) return null;
+    const total = product.reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (total / product.reviews.length).toFixed(1);
+  };
+
   if (loading) {
     return <div className="loading">Memuat detail produk...</div>;
   }
@@ -111,6 +117,11 @@ function ProductDetail() {
                 {typeof product.sold !== 'undefined' && (
                   <div className="sold-info">
                     <strong>Sudah Terjual:</strong> {product.sold} kali
+                  </div>
+                )}
+                {getAverageRating() && (
+                  <div className="rating-info">
+                    <strong>Rating:</strong> ⭐ {getAverageRating()} / 5 ({product.reviews.length} ulasan)
                   </div>
                 )}
               </div>
@@ -162,6 +173,26 @@ function ProductDetail() {
 
             <div className="total-price">
               <strong>Subtotal:</strong> {formatPrice(product.price * quantity)}
+            </div>
+
+            <div className="product-reviews-section">
+              <h2>Ulasan Pembeli</h2>
+              {product.reviews && product.reviews.length > 0 ? (
+                <div className="reviews-list">
+                  {product.reviews.map((review) => (
+                    <div key={review.id} className="review-card">
+                      <div className="review-header">
+                        <strong>{review.customer}</strong>
+                        <span className="review-rating">⭐ {review.rating}</span>
+                      </div>
+                      <p className="review-date">{review.date}</p>
+                      <p className="review-comment">{review.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="no-review">Belum ada ulasan.</p>
+              )}
             </div>
           </div>
         </div>
