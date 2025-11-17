@@ -6,7 +6,7 @@ const PRODUCTS_KEY = 'hsmart_products';
 const ORDERS_KEY = 'hsmart_orders';
 const CART_KEY_PREFIX = 'hsmart_cart_';
 const SCHEMA_VERSION_KEY = 'hsmart_schema_version';
-const CURRENT_SCHEMA_VERSION = '1.3';
+const CURRENT_SCHEMA_VERSION = '1.4';
 
 function delay(ms = 300) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -192,7 +192,7 @@ function ensureSeedData() {
         description:
           'Paket ring light, tripod meja, dan mikrofon USB untuk presentasi online, rekaman video tugas, dan konten media sosial.',
         image:
-          'https://images.unsplash.com/photo-1518895949257-7621c3c786d4?w=500',
+          'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=500&q=80',
         category: 'Kreatif',
         stock: 18,
         sold: 22,
@@ -312,7 +312,7 @@ function ensureSeedData() {
         description:
           'Botol minum pintar dengan pengingat LED untuk menjaga hidrasi saat belajar atau kerja panjang.',
         image:
-          'https://images.unsplash.com/photo-1542444459-db6318d691bf?w=500',
+          'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=500&q=80',
         category: 'Kesehatan',
         stock: 60,
         sold: 150,
